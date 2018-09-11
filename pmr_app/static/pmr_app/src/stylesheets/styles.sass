@@ -1,0 +1,57 @@
+// Screen sizes for queries
+$tablet: 768px
+$desktop: 992px
+
+// Media query mixins
+@mixin media-tablet
+  @media (min-width: #{$tablet})
+    @content
+
+@mixin media-desktop
+  @media (min-width: #{$desktop})
+    @content
+
+// Base number is 70px
+// Ratio is 3/4
+// Most of the spacing is achieved by
+// multiplying 70 by 3/4 or 4/3
+$spacing: 70px
+
+$main-color: #A4E6EB
+$text-main-color: #040F0F
+$secondary-color: #57737A
+
+.bc-main
+  background-color: $main-color
+
+.bc-secondary
+  background-color: $secondary-color
+
+.c-secondary
+  color: $secondary-color
+
+.bc-secondary
+  color: $secondary-color
+
+.c-text-main
+  color: $text-main-color!important
+
+*
+  font-family: 'Muli', sans-serif
+  font-weight: 400
+
+h1, h2, h3, h4, h5,
+  padding: 0
+  margin: 0
+  font-weight: 600
+
+.row
+  margin: auto
+
+.page-header
+  text-align: center
+  margin-bottom: $spacing
+  font-weight: 400
+
+.alert-close
+  padding-left: 2em

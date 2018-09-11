@@ -1,0 +1,19 @@
+{% extends 'pmr_app/base.html' %}
+{% load static %}
+
+{% block extra_meta %}
+
+{% endblock %}
+{% block title %}
+
+{% endblock %}
+{% block main %}
+{% csrf_token %}
+<div class="" id="app">
+  <router-view></router-view>
+</div>
+{% endblock %}
+{% block extra_scripts %}
+<script src="{% static 'pmr_app/bundles/styles.bundle.js' %}" charset="utf-8"></script>
+<script src="{% static 'pmr_app/bundles/main.bundle.js' %}" charset="utf-8"></script>
+{% endblock %}
