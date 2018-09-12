@@ -1,1 +1,60 @@
+@import "./styles"
 
+html, body
+  height: 100%
+
+html
+  background-color: #FFFFFF
+
+body
+  background: rgb(164,230,235)
+  background: -moz-linear-gradient(180deg, rgba(164,230,235,1) 0%, rgba(255,255,255,1) 100%)
+  background: -webkit-linear-gradient(180deg, rgba(164,230,235,1) 0%, rgba(255,255,255,1) 100%)
+  background: linear-gradient(180deg, rgba(164,230,235,1) 0%, rgba(255,255,255,1) 100%)
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#a4e6eb",endColorstr="#ffffff",GradientType=1)
+
+
+.main-container
+  padding-top: $spacing
+
+.page-header
+  font-weight: 600
+
+.page-header a:hover
+  text-decoration: none
+
+#login-app
+  margin: auto
+
+.login-intro
+  margin-top: $spacing
+
+.login-intro, .welcome
+  text-align: center
+  margin-bottom: $spacing
+
+.welcome
+  margin-top: -($spacing-s-2)
+  font-weight: 400
+
+.account-link-container
+  text-align: center
+  margin-top: $spacing
+
+.login-form
+  width: 100%
+  text-align: center
+  margin: auto
+  margin-bottom: $spacing-b-2
+
+.errorList
+  display: none
+
+.form-control
+  width: 20em
+  text-align: left
+  margin: auto
+  margin-bottom: $spacing-s-1
+
+.btn-main
+  margin-top: $spacing-s-3
