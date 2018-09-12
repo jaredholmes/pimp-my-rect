@@ -6,9 +6,9 @@ module.exports = {
   context: __dirname,
 
   entry: {
-    main: './src/scripts/index',
+    main: './src/scripts/app',
     styles: './src/scripts/styles',
-    loginStyles: './src/scripts/loginStyles'
+    loginScript: './src/scripts/loginScript',
   },
 
   output: {
@@ -16,7 +16,7 @@ module.exports = {
     filename: '[name].bundle.js',
   },
 
-  mode: 'development',
+  mode: 'production',
 
   plugins: [
     new VueLoaderPlugin(),
@@ -71,8 +71,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      vue: 'vue/dist/vue.js', // for dev
-      // vue: 'vue/dist/vue.common', // for production
+      // vue: 'vue/dist/vue.js', // for dev
+      vue: 'vue/dist/vue.common', // for production
     },
   },
 };
