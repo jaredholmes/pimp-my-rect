@@ -10,9 +10,23 @@
   {% block extra_styles %}{% endblock %}
   <title>{% block title %}{% endblock %}</title>
 </head>
+
 <body class="c-text-main">
 {% block main %}{% endblock %}
 <script src="{% static 'pmr_app/bundles/styles.bundle.js' %}" charset="utf-8"></script>
 {% block extra_scripts %}{% endblock %}
+
+<footer class="footer row">
+  <div class="col-6 footer-navigation">
+    <a href="/" class="c-secondary">Editor</a>
+    <br>
+    <a href="/gallery/" class="c-secondary">Gallery</a>
+    <br>
+    <a href="/log-out/" class="c-secondary">Log Out</a>
+  </div>
+  <div class="col-6 footer-signature c-text-main">
+    Made by Jared Holmes | 2018
+  </div>
+</footer>
 </body>
 </html>
