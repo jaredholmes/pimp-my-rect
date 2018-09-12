@@ -14,6 +14,13 @@
 </div>
 {% endblock %}
 {% block extra_scripts %}
+<script type="text/javascript">
+  const user = {{ request.user.id }};
+  const widthMax = 350;
+  const heightMax = 350;
+  const borderMax = 100;
+</script>
+
 <script src="{% static 'pmr_app/bundles/styles.bundle.js' %}" charset="utf-8"></script>
 <script src="{% static 'pmr_app/bundles/main.bundle.js' %}" charset="utf-8"></script>
 {% endblock %}
