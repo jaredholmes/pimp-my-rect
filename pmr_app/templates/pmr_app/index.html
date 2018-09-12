@@ -1,1 +1,29 @@
+{% extends 'pmr_app/base.html' %}
+{% load static %}
 
+{% block main %}
+<div class="main-container container row gradient">
+  <div class="col-12">
+    <h1 class="page-header"><a class="c-text-main" href="/">Pimp My <span class="rect">Rect</span></a></h1>
+  </div>
+  {% block content %}
+  <div class="col-12">
+    <h4 class="login-intro">Log in to access all of Pimp My Rect's amazing features.</h4>
+  </div>
+  <div class="col-5 offset-1 account-link-container">
+    <a class="c-secondary" href="/login/">
+      <button class="btn btn-main" type="button" >Log In</button>
+    </a>
+  </div>
+  <div class="col-5 account-link-container">
+    <a class="c-secondary" href="/sign-up/">
+      <button class="btn btn-main" type="button" >Sign Up</button>
+    </a>
+  </div>
+</div>
+{% endblock %}
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'pmr_app/bundles/loginStyles.bundle.js' %}" charset="utf-8"></script>
+{% endblock %}
