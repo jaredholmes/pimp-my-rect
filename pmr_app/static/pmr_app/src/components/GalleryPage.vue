@@ -22,14 +22,14 @@
         </div>
         <div v-show="!showFilter" class="col-12 row gallery-form filter-form">
           <label class="col-5" for="sort-by-select">Sort by:</label>
-          <select @change="setSortBy($event.target.value)" class="col-7 form-control" name="sort-by-select">
+          <select @change="setSortBy($event.target.value)" class="col-7 form-control" id="sort-by-select" name="sort-by-select">
             <option value="date">Date saved</option>
             <option value="width">Width</option>
             <option value="height">Height</option>
             <option value="border">Border</option>
           </select>
           <label class="col-5" for="order-by-select">Order by:</label>
-          <select @change="toggleSortOrder(orderAscending), setSortBy('date')" class="col-7 form-control" name="order-by-select">
+          <select @change="toggleSortOrder(orderAscending)" class="col-7 form-control" name="order-by-select">
             <option value="desc">Descending</option>
             <option value="asc">Ascending</option>
           </select>
@@ -104,6 +104,7 @@ export default {
       showFilter: true,
       galleryData: [],
       filteredData: [],
+      sortByProp: 'date',
       orderAscending: false,
       galleryHasItems: false,
       filteredProperties: {
@@ -158,13 +159,15 @@ export default {
         sortSelector.classList.remove('active');
       }
     },
-    // // TODO: fix sort order
     toggleSortOrder(isAscending) {
+      const select = document.getElementById('sort-by-select');
+      const val = select.options[select.selectedIndex].value;
       if (isAscending) {
         this.orderAscending = false;
       } else {
         this.orderAscending = true;
       }
+      this.setSortBy(val);
     },
     setSortBy(value) {
       // Sorts in descending order by default. If 'Ascending' order is
