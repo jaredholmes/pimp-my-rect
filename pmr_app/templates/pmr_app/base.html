@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +12,7 @@
 </head>
 <body class="c-text-main">
 {% block main %}{% endblock %}
+<script src="{% static 'pmr_app/bundles/styles.bundle.js' %}" charset="utf-8"></script>
 {% block extra_scripts %}{% endblock %}
 </body>
 </html>
