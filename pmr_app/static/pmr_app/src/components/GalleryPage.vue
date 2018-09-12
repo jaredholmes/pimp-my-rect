@@ -1,8 +1,8 @@
 <template lang="html">
-  <div class="">
+  <div>
     <nav-bar-item></nav-bar-item>
     <div class="container row">
-      <div v-if="deletedAlert" id="deleted-alert" class="alert alert-secondary alert-deleted" role="alert" :style="{ borderColor: alertBorder }">
+      <div v-if="deletedAlert" class="alert alert-secondary alert-deleted" role="alert">
         Rectangle deleted.
         <button @click="deletedAlert = false;" type="button" class="close alert-close" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -37,8 +37,7 @@
       </div>
       <div v-if="galleryHasItems" class="col-12 col-lg-6 offset-lg-1 gallery-display-section">
         <div v-for="i, x in filteredData" class="col-4 col-md-3 gallery-item-container">
-          <div :style="{
-            backgroundColor: filteredData[x].background_color }" class="gallery-item hvr-glow" data-toggle="modal" :data-target="'#' + modalIDPrefix + x">
+          <div :style="{ backgroundColor: filteredData[x].background_color }" class="gallery-item hvr-glow" data-toggle="modal" :data-target="'#' + modalIDPrefix + x">
             <div class="quick-details-container row">
               <div class="col-12 rectangle-quick-detail">
                 {{ filteredData[x].width }}px x {{ filteredData[x].height }}px
@@ -84,7 +83,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button @click="deleteRect(filteredData[x].id, x)" type="button" class="btn delete-rectangle-button" data-toggle="modal" data-target="#confirmModal">Delete</button>
+              <button @click="deleteRect(filteredData[x].id, x)" type="button" class="btn delete-rectangle-button">Delete</button>
             </div>
           </div>
         </div>
@@ -108,15 +107,16 @@ export default {
       orderAscending: false,
       galleryHasItems: false,
       filteredProperties: {
-        maxWidth: 350,
-        maxHeight: 350,
-        maxBorder: 100,
+        maxWidth: widthMax,
+        maxHeight: widthMax,
+        maxBorder: widthMax,
       },
       modalIDPrefix: 'gallery-modal-',
       deletedAlert: false,
     }
   },
   watch: {
+    // Watch all values of filteredProperties object and filter
     filteredProperties: {
       handler() {
         this.filteredData = this.galleryData.filter(datum => {
@@ -132,7 +132,7 @@ export default {
   },
   methods: {
     setUpGallery() {
-      api.getUserGallery(1)
+      api.getUserGallery(user)
         .then((response) => {
           this.galleryData = response.data;
           if (this.galleryData != undefined && this.galleryData.length > 0) {
@@ -144,17 +144,21 @@ export default {
           this.setSortBy('date');
         });
     },
+    // Toggle between sort and filter forms
     toggleFormSelector(input) {
+      const filterSelector = document.getElementById('filter-selector');
+      const sortSelector = document.getElementById('sort-selector');
       if (input) {
         this.showFilter = false;
-        document.getElementById('filter-selector').classList.remove('active');
-        document.getElementById('sort-selector').classList.add('active');
+        filterSelector.classList.remove('active');
+        sortSelector.classList.add('active');
       } else {
         this.showFilter = true;
-        document.getElementById('filter-selector').classList.add('active');
-        document.getElementById('sort-selector').classList.remove('active');
+        filterSelector.classList.add('active');
+        sortSelector.classList.remove('active');
       }
     },
+    // // TODO: fix sort order
     toggleSortOrder(isAscending) {
       if (isAscending) {
         this.orderAscending = false;
@@ -222,8 +226,8 @@ export default {
     -webkit-transform: perspective(1px) translateZ(0)
     transform: perspective(1px) translateZ(0)
     box-shadow: 0 0 1px rgba(0, 0, 0, 0)
-    -webkit-transition-duration: 0.3s
-    transition-duration: 0.3s
+    -webkit-transition-duration: 0.2s
+    transition-duration: 0.2s
     -webkit-transition-property: box-shadow
     transition-property: box-shadow
 
@@ -263,7 +267,7 @@ export default {
     margin-bottom: $spacing
 
   .container.row
-    padding-bottom: $spacing * 4/3 * 4/3
+    padding-bottom: $spacing-b-2
 
   .gallery-empty-section
 
@@ -271,13 +275,12 @@ export default {
       text-align: center
 
   .gallery-item-container
-    height: $spacing * 4/3 * 4/3 * 4/3 * 4/3
+    height: $spacing-b-4
     display: inline-block
-    overflow: hidden
 
   .gallery-item
-    width: 95%
-    height: 90%
+    width: 120%
+    height: 96%
     text-align: center
 
   .quick-details-container
@@ -285,7 +288,9 @@ export default {
     top: 0
     bottom: 0
     width: 100%
+    padding-top: 1.3em
     color: rgba(0, 0, 0, 0)
+    font-size: 14px
 
   .quick-details-container:hover
     color: black
@@ -297,8 +302,11 @@ export default {
       width: 1.5em
       height: 1.5em
 
+  .modal-body
+    padding: 0
+
   .modal-display-rectangle
-    margin: $spacing auto
+    margin: $spacing-s-2 auto
 
   .modal-rectangle-details
 

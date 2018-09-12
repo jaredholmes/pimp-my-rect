@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="">
+  <div>
     <nav-bar-item></nav-bar-item>
     <div class="container row">
       <div v-if="savedAlert" id="saved-alert" class="alert alert-saved" role="alert" :style="{ borderColor: alertBorder }">
@@ -30,25 +30,27 @@
 
             <label class="col-3 col-md-2" for="height-picker">Height:</label>
             <input type="range" class="custom-range col-5 col-md-7" id="height-picker" min="5" :max="maxHeight" name="height-picker" v-model="outputHeight">
-            <input type="number" onkeydown="return false;" max="350" min="5" maxlength="3" class="number-input form-control col-3 col-md-2" v-model="outputHeight">
+            <input type="number" onkeydown="return false;" :max="maxHeight" min="5" maxlength="3" class="number-input form-control col-3 col-md-2" v-model="outputHeight">
 
             <label class="col-3 col-md-2" for="border-picker">Border:</label>
-            <input type="range" class="custom-range col-5 col-md-7" id="border-picker" min="0" max="100" name="border-picker" v-model="outputBorder">
-            <input type="number" onkeydown="return false;" :max="maxWidth" min="1" maxlength="3" class="number-input form-control col-3 col-md-2" v-model="outputBorder">
+            <input type="range" class="custom-range col-5 col-md-7" id="border-picker" min="0" :max="maxBorder" name="border-picker" v-model="outputBorder">
+            <input type="number" onkeydown="return false;" :max="maxBorder" min="1" maxlength="3" class="number-input form-control col-3 col-md-2" v-model="outputBorder">
 
             <label class="col-2" for="color-picker">Color:</label>
             <input  type="text" class="text-input col-4 col-sm-3" name="color-picker" maxlength="7" v-model="outputColor.hex">
             <color-slider class="col-5 col-sm-6" v-model="outputColor"></color-slider>
 
-            <button type="button" class="col-3 offset-2 offset-sm-3 btn btn-save bc-secondary" @click="saveRectangle">Save</button>
+            <div class="col-12">
+              <button type="button" class="btn btn-save btn-main" @click="saveRectangle">Save</button>
+            </div>
           </div>
         </form>
       </div>
       <div class="col-12 col-lg-6 output-rect-container">
         <div class="output-rect" id="output" :style="{
-          width: outputWidth+'px',
-          height: outputHeight+'px',
-          borderRadius: outputBorder+'px',
+          width: outputWidth + 'px',
+          height: outputHeight + 'px',
+          borderRadius: outputBorder + 'px',
           maxWidth: maxWidth + 'px',
           maxHeight: maxHeight + 'px',
           backgroundColor: outputColor.hex
@@ -74,14 +76,15 @@ export default {
   },
   data() {
     return {
-      outputWidth: 263,
+      outputWidth: 175,
       outputHeight: 175,
-      outputBorder: 25,
+      outputBorder: 0,
       outputColor: {
-        hex: '#FF19A3'
+        hex: '#87255B',
       },
-      maxWidth: 350,
-      maxHeight: 350,
+      maxWidth: widthMax,
+      maxHeight: heightMax,
+      maxBorder: borderMax,
       savedAlert: false,
       failedAlert: false,
       invalidHexAlert: false,
@@ -92,7 +95,7 @@ export default {
     saveRectangle() {
       // TODO: improve hex validation
       if (this.outputColor.hex.length <= 7 && this.outputColor.hex.charAt(0) === '#') {
-        api.createRectangle(1, this.outputWidth, this.outputHeight, this.outputBorder, this.outputColor.hex)
+        api.createRectangle(user, this.outputWidth, this.outputHeight, this.outputBorder, this.outputColor.hex)
           .then((response) => {
             this.savedAlert = true;
             // Seperate variable alertBorder is required, or else the border
@@ -107,12 +110,8 @@ export default {
       }
     }
   },
-  watch: {
-    width() {
-      this.con();
-    }
-  },
   beforeMount() {
+    // Retrieve Django CSRF Token
     const csrf = document.getElementsByName('csrfmiddlewaretoken')[0].value;
     axios.defaults.headers.post['X-CSRFToken'] = csrf;
   }
@@ -132,27 +131,12 @@ form
 .text-input, .number-input
   display: inline
   margin: 0
-  margin-bottom: $spacing*3/4
-  height: $spacing * 3/4 * 3/4
-  border: 1px solid #ced4da
-
-.btn-save
-  position: relative
-  bottom: 2px
-  height: $spacing * 3/4 * 3/4
-  color: #FFFFFF
-  font-weight: 600
-
-.btn-save:hover
-  background-color: #FFFFFF
+  margin-bottom: $spacing-s-1
+  height: $spacing-s-2
   border: 1px solid $secondary-color
-  color: $secondary-color
-
-.btn-save:active
-  background-color: $main-color
 
 .output-rect-container
-  height: 490px // 90 * 4(4/3)
+  height: $spacing-b-4
 
 .output-rect
   margin: auto
@@ -161,5 +145,11 @@ form
   display: inline-block
   position: relative
   top: 15px
+
+.btn-save
+  margin: auto
+  padding: 0 2em
+  display: block
+  margin-bottom: $spacing
 
 </style>
