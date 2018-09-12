@@ -15,7 +15,17 @@ $desktop: 992px
 // Ratio is 3/4
 // Most of the spacing is achieved by
 // multiplying 70 by 3/4 or 4/3
+// -b- = bigger
+// -s- = smaller
 $spacing: 70px
+$spacing-b-1: $spacing * 4/3
+$spacing-b-2: $spacing * 4/3 * 4/3
+$spacing-b-3: $spacing * 4/3 * 4/3 * 4/3
+$spacing-b-4: $spacing * 4/3 * 4/3 * 4/3 * 4/3
+$spacing-s-1: $spacing * 3/4
+$spacing-s-2: $spacing * 3/4 * 3/4
+$spacing-s-3: $spacing * 3/4 * 3/4 * 3/4
+$spacing-s-4: $spacing * 3/4 * 3/4 * 3/4 * 3/4
 
 $main-color: #A4E6EB
 $text-main-color: #040F0F
@@ -53,5 +63,27 @@ h1, h2, h3, h4, h5,
   margin-bottom: $spacing
   font-weight: 400
 
+.rect
+  // Use em in order to allow the text, border and padding to scale together
+  border: 0.1em solid $text-main-color
+  padding-right: 1em
+  font-weight: 600
+
 .alert-close
   padding-left: 2em
+
+.btn-main
+  position: relative
+  bottom: 2px
+  height: $spacing-s-2
+  color: #FFFFFF
+  background-color: $secondary-color
+  font-weight: 600
+
+.btn-main:hover
+  background-color: #FFFFFF
+  border: 1px solid $secondary-color
+  color: $secondary-color
+
+.btn-main:active
+  background-color: $main-color
