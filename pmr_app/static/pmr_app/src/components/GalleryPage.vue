@@ -277,6 +277,9 @@ export default {
     h4
       text-align: center
 
+  .gallery-display-section
+    padding-left: 0
+
   .gallery-item-container
     height: $spacing-b-4
     display: inline-block
