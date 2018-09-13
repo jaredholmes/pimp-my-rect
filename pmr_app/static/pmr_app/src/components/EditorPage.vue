@@ -93,7 +93,6 @@ export default {
   },
   methods: {
     saveRectangle() {
-      // TODO: improve hex validation
       if (this.outputColor.hex.length <= 7 && this.outputColor.hex.charAt(0) === '#') {
         api.createRectangle(user, this.outputWidth, this.outputHeight, this.outputBorder, this.outputColor.hex)
           .then((response) => {
@@ -114,6 +113,8 @@ export default {
     // Retrieve Django CSRF Token
     const csrf = document.getElementsByName('csrfmiddlewaretoken')[0].value;
     axios.defaults.headers.post['X-CSRFToken'] = csrf;
+
+    this.$root.setTitle('Editor');
   }
 }
 </script>

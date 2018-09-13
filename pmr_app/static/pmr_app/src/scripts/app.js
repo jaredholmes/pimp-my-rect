@@ -15,6 +15,14 @@ const router = new VueRouter({
 
 Vue.use(VueRouter);
 
+Vue.mixin({
+  methods: {
+    setTitle(title) {
+      document.title = title + ' | Pimp My Rect';
+    },
+  },
+});
+
 new Vue({
   router,
   watch: {
@@ -22,6 +30,4 @@ new Vue({
       window.scrollTo(0, 0);
     },
   },
-  mounted() {
-  }
 }).$mount('#app');

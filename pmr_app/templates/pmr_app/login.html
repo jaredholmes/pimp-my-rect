@@ -1,5 +1,6 @@
 {% extends 'pmr_app/index.html'%}
 {% load  static %}
+
 {% block content %}
 <div id="login-app">
   <div class="col-12">
@@ -24,5 +25,8 @@
 </div>
 {% endblock %}
 {% block extra_scripts %}
+  <script type="text/javascript">
+    const siteTitle = "{{ site_title }}"
+  </script>
   <script src="{% static 'pmr_app/bundles/loginScript.bundle.js' %}" charset="utf-8"></script>
 {% endblock %}

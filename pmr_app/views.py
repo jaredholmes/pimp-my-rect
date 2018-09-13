@@ -10,13 +10,14 @@ from rest_framework.response import Response
 from .models import Rectangle
 from . import serializers, forms
 
+context = {
+    'site_title': settings.SITE_TITLE,
+}
+
 # Create your views here.
 def home(request):
-    context = {
-        'site_title': settings.SITE_TITLE,
-    }
     if request.user.is_authenticated:
-        return render(request, 'pmr_app/app.html')
+        return render(request, 'pmr_app/app.html', context=context)
     else:
         return render(request, 'pmr_app/index.html', context=context)
 
@@ -46,7 +47,7 @@ def user_login(request, sign_up=False):
         else:
             form = forms.UserLoginForm()
 
-    return render(request, 'pmr_app/login.html', { 'form': form })
+    return render(request, 'pmr_app/login.html', { 'form': form, 'site_title': settings.SITE_TITLE, })
 
 def sign_up(request):
     return user_login(request, sign_up=True)
