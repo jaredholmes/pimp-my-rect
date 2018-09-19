@@ -13,7 +13,8 @@ module.exports = {
 
   output: {
     path: path.resolve('./bundles/'),
-    filename: '[name].bundle.js',
+    filename: (__dirname, '[name].bundle.js'),
+    publicPath: '/dist/bundles/',
   },
 
   mode: 'production',
@@ -21,6 +22,13 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin(),
   ],
+
+  devServer: {
+    publicPath: '/dist/bundles/',
+    contentBase: path.resolve(__dirname),
+    watchContentBase: true,
+    compress: true,
+  },
 
   module: {
     rules: [
